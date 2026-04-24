@@ -46,10 +46,11 @@ int main()
                 shared_ptr<material> sphere_material;
 
                 if (choose_mat < 0.8) {
-                    // difuse
+                    // diffuse
                     auto albedo = color::random() * color::random();
                     sphere_material = make_shared<lambertian>(albedo);
-                    world.add(make_shared<sphere>(center, 0.2, sphere_material));
+                    auto center2 = center + vec3(0, random_double(0, 0.5), 0);
+                    world.add(make_shared<sphere>(center, center2, 0.2, sphere_material));
                 }
                 else if (choose_mat < 0.9)
                 {
@@ -79,8 +80,8 @@ int main()
 
     camera cam;
     cam.aspect_ratio        = 16.0 / 9.0;
-    cam.image_width         = 1200; //400;
-    cam.samples_per_pixel   = 100; //100;
+    cam.image_width         = 400; //1200;
+    cam.samples_per_pixel   = 100; //500;
     cam.max_depth           = 50;
 
     cam.vfov     = 20;
