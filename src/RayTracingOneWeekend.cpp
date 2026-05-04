@@ -1,3 +1,6 @@
+#include <chrono>
+#include <format>
+
 #include "rtweekend.h"
 
 #include "camera.h"
@@ -92,5 +95,11 @@ int main()
     cam.defocus_angle = 0.6; //10.0
     cam.focus_dist    = 10.0; //3.4
 
+    auto start = std::chrono::steady_clock::now();
     cam.render(world);
+    auto end = std::chrono::steady_clock::now();    
+    
+    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    auto time = std::format("{:%Mm%Ss}", ms);
+    std::clog << time;
 }
