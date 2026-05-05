@@ -1,6 +1,9 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
+
+#include "aabb.h"
+
 // Next line tells the compiler that a class material will be used but defined somewhere else
 class material; // This fixes a circular reference issue
 
@@ -25,6 +28,7 @@ class hittable {
 public:
 	virtual ~hittable() = default;
 	virtual bool hit(const ray& r, interval ray_t, hit_record& rec) const = 0;
+	virtual aabb bounding_box() const = 0;
 };
 
 #endif // !HITTABLE_H
