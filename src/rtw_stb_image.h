@@ -27,8 +27,7 @@ public:
 		// width() and height() will return 0.
 
 		auto filename = std::string(image_filename);
-		//auto imagedir = getenv("RTW_IMAGES"); // TODO: getenv is treated as unsafe by MS compiler. Needs fixing
-		auto imagedir = "";
+		auto imagedir = getenv("RTW_IMAGES");
 
 		// Hunt for the image file in some likely locations.
 		if (imagedir && load(std::string(imagedir) + "/" + image_filename)) return;
