@@ -1,6 +1,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include "perlin.h"
 #include "rtw_stb_image.h"
 
 class texture {
@@ -53,7 +54,7 @@ public:
 	image_texture(const char* filename) : image(filename) {}
 
 	color value(double u, double v, const point3& p) const override {
-		// If we have no texture data, then return solid cyan as a debgging aid.
+		// If we have no texture data, then return solid cyan as a debugging aid.
 		if (image.height() <= 0) return color(0, 1, 1);
 
 		// Clamp input texture coordinates to [0,1] x [1,0]
@@ -70,6 +71,18 @@ public:
 
 private:
 	rtw_image image;
+};
+
+class noise_texture : public texture {
+public:
+	noise_texture() {}
+
+	color value(double u, double v, const point3& p) const override {
+		return color(1, 1, 1) * noise.noise(p);
+	}
+
+private:
+	perlin noise;
 };
 
 #endif // !TEXTURE_H
